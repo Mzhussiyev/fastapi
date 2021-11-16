@@ -1,0 +1,55 @@
+replicaCount: 1
+image:
+  repository: REPOSITORY # Managed by pipeline
+  tag: IMAGE_TAG # Managed by pipeline
+  pullPolicy: Always
+
+nameOverride: dev-reporting-reporting-api
+fullnameOverride: dev-reporting-reporting-api
+
+# internal config name for service
+configPath: /config
+containerPort: 8080
+service:
+  type: ClusterIP
+  targetPort: 8080
+  port: 80
+
+imagePullSecrets: PULL_SECRET # Managed by pipeline
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: "ingress"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "X-Context,DNT,X-CustomHeader,X-OwnerContext,X-PerformerContext,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,X-Authentication-Chain,Source,X-MerchantContext"
+    nginx.ingress.kubernetes.io/cors-max-age: "3600"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "25m"
+  path: /
+  hosts:
+    - reporting-api.dar-dev.zone # you can change it
+  tls:
+    - secretName: dar-dev-secret
+      hosts:
+        - reporting-api.dar-dev.zone # you can change it
+
+resources:
+  requests:
+    cpu: 800m
+    memory: 800M
+  limits:
+    cpu: 4
+    memory: 900M
+
+affinity: {}
+
+enviroment: dev
+
+env:
+  TZ: Asia/Almaty
+  DB_URL: "postgresql+asyncpg://dartech_data_lake_admin:eciyZu!Th0cj@prod-dartech-data-lake-rds-postgresql-v122.c5uhwnscdeev.eu-west-1.rds.amazonaws.com:5432/dartech_data_lake"

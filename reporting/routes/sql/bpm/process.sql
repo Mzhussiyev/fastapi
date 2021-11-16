@@ -1,0 +1,2 @@
+select distinct process_definition_name
+from stage_performance.v_bpm_reporting vbr

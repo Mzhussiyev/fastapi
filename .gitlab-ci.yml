@@ -1,0 +1,18 @@
+include:
+  - project: "cicd/gitlab-ci"
+    file: "single/single-pipeline-python-gitlab-ci.yaml"
+
+## ============= DEV ============
+
+repository-dev:
+  extends: .repository
+
+docker-build-dev:
+  extends: .docker-build
+
+helm-package-dev:
+  extends: .helm-package
+
+deploy-dev:
+  extends: .deploy
+
