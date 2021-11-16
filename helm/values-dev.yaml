@@ -52,4 +52,4 @@ enviroment: dev
 
 env:
   TZ: Asia/Almaty
-  DB_URL: "postgresql+asyncpg://dartech_data_lake_admin:eciyZu!Th0cj@prod-dartech-data-lake-rds-postgresql-v122.c5uhwnscdeev.eu-west-1.rds.amazonaws.com:5432/dartech_data_lake"
+  DB_URL: "postgresql+asyncpg://username:password@host:5432/dbname"
